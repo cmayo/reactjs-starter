@@ -36,7 +36,7 @@ module.exports = {
 		new webpack.optimize.DedupePlugin(),
 
 		// Write out CSS bundle to its own file:
-		new ExtractTextPlugin('style.css', { allChunks: true })
+		new ExtractTextPlugin('styles.css', { allChunks: true })
 	]).concat(process.env.WEBPACK_ENV==='dev' ? [] : [
 		new webpack.optimize.OccurenceOrderPlugin(),
 
