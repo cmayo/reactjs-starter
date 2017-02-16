@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -p",
-    "start": "WEBPACK_ENV=dev webpack-dev-server -d --hot --inline",
-    "clean": "rm -r ./www/dist"
+    "start": "WEBPACK_ENV=dev webpack-dev-server -d --hot --port 3000",
+    "clean": "rm -r ./www/static"
   },
   "author": "",
   "license": "ISC",

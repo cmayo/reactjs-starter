@@ -1,13 +1,20 @@
 var path = require('path');
+var fs = require('fs');
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
+var appDirectory = fs.realpathSync(process.cwd());
+function resolveApp(relativePath) {
+  return path.resolve(appDirectory, relativePath);
+}
+
 module.exports = {
-    entry: './src/app.js',
+    entry: resolveApp('src/app.js'),
     output: {
-        path: path.join(__dirname, 'www/dist'),
-        publicPath: '/dist/',
-        filename: 'app.js'
+        path: path.join(__dirname, 'www'),
+        publicPath: '/',
+        pathinfo: true,
+        filename: 'static/js/app.js'
     },
     resolve: {
 		modulesDirectories: [
@@ -36,7 +43,7 @@ module.exports = {
 		new webpack.optimize.DedupePlugin(),
 
 		// Write out CSS bundle to its own file:
-		new ExtractTextPlugin('styles.css', { allChunks: true })
+		new ExtractTextPlugin('static/css/styles.css', { allChunks: true })
 	]).concat(process.env.WEBPACK_ENV==='dev' ? [] : [
 		new webpack.optimize.OccurenceOrderPlugin(),
 
@@ -46,8 +53,8 @@ module.exports = {
 			exclude: [ /\.min\.js$/gi ]		// skip pre-minified libs
 		})
     ]),
-    devtool: 'source-map',
+    devtool: 'cheap-module-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'www/')
+        contentBase: path.join(__dirname, 'www')
     }
 }
